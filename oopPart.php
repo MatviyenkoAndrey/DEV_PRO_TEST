@@ -5,20 +5,20 @@ class Collection {
     private $storage;
 
 
-    public function __construct(array $storage)
+    public function __construct(array $storage = NULL)
     {
        $this->storage = $storage;
     }
 
-    public function add ( object $key, mixed $data = NULL){
+    public function add ( stdClass $key, mixed $data = NULL){
         $this->storage[] = $key($data);
     }
-    public function remove (object $key){
+    public function remove (stdClass $key){
         $this->storage = array_filter($this->storage, function ($element) use ($key) { 
             return ($element != $key); 
         } );
     }
-    public function getHash (object $object){
+    public function getHash (stdClass $object){
         return spl_object_hash($object);
     }
     public function current (){
@@ -27,7 +27,7 @@ class Collection {
     public function getObjectList (){
         return $this->storage;
     }
-    public function check ( object $object){
+    public function check ( stdClass $object){
         return array_key_exists($object, $storage);
     }
     public static function removeAll (ObjectCollection $collection){
